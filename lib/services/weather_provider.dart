@@ -26,4 +26,7 @@ class WeatherProvider extends ChangeNotifier{
       notifyListeners();
     }
   }
+
+   List<ForecastItem> get hourlyForecast => _data!.hourlyForecast;
+   
   }
