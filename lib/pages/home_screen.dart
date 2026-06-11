@@ -23,9 +23,6 @@ String getWeatherAnimation(String description) {
     case 'nuvens dispersas':
     case 'parcialmente nublado':
       return 'assets/animations/Weather-partly cloudy.json';
-
-    case 'nublado':
-    case 'tempo nublado':
     case 'chuviscos':
     case 'chuva leve':
       return 'assets/animations/Weather-partly shower.json';
@@ -35,7 +32,8 @@ String getWeatherAnimation(String description) {
     case 'trovoada':
     case 'tempestade':
       return 'assets/animations/Weather-storm.json';
-
+    
+    case 'nublado':
     case 'vento':
     case 'ventania':
       return 'assets/animations/Weather-windy.json';
