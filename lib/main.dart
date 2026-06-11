@@ -20,12 +20,15 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home:  HomeScreen(),
+    return Consumer<WeatherProvider>(
+      builder: (context, weatherProvider, child) {
+        return MaterialApp(
+          title: 'MyWeather',
+          debugShowCheckedModeBanner: false,
+          theme: weatherProvider.currentTheme, 
+          home: const HomeScreen(),
+        );
+      },
     );
   }
 }

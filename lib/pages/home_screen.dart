@@ -32,7 +32,7 @@ String getWeatherAnimation(String description) {
     case 'trovoada':
     case 'tempestade':
       return 'assets/animations/Weather-storm.json';
-    
+
     case 'nublado':
     case 'vento':
     case 'ventania':
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: Builder(
@@ -70,10 +70,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 Scaffold.of(innerContext).openDrawer();
               },
               icon: const Icon(CupertinoIcons.bars),
+              color: Theme.of(context).textTheme.bodySmall!.color,
             );
           },
         ),
-        title: const Text("MyWeather"),
+        title: Text(
+          "MyWeather",
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       drawer: Drawer(
         backgroundColor: const Color.fromARGB(177, 236, 238, 240),
@@ -108,30 +115,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Text(
                                   weather.cityName,
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 const SizedBox(width: 8),
-                                Icon(Icons.location_pin),
+                                Icon(
+                                  Icons.location_pin,
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.titleLarge!.color,
+                                ),
                               ],
                             ),
                             const SizedBox(height: 8),
                             Text(
                               '${weather.temp.toStringAsFixed(1)}°C',
-                              style: const TextStyle(
-                                fontSize: 48,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: Theme.of(context).textTheme.displayLarge,
                             ),
                             const SizedBox(height: 8),
                             Text(
                               weather.weatherDescription.toUpperCase(),
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 14,
-                              ),
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ],
                         ),
@@ -147,9 +150,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   const SizedBox(height: 24),
 
-                  const Text(
+                  Text(
                     'Próximas Horas:',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
 
                   const SizedBox(height: 10),
@@ -170,6 +176,97 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 8),
                   UmidityContainer(weather: weather),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 125,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.2),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 8),
+                                  Text(
+                                    "Nascer do Sol:",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall,
+                                  ),
+                                  SizedBox(height: 8),
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Lottie.asset(
+                                      "assets/animations/sunrise.json",
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    "${weather.sunrise.hour - 3}:${weather.sunrise.minute.toString().padLeft(2,"0")} hr",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            height: 125,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.2),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 8),
+                                  Text(
+                                    "Pôr do Sol:",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall,
+                                  ),
+                                  SizedBox(height: 8),
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Lottie.asset(
+                                      "assets/animations/sunset.json",
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    "${weather.sunset.hour - 3}:${weather.sunset.minute} hr",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             );
