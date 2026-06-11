@@ -20,7 +20,10 @@ class UmidityContainer extends StatelessWidget {
               SizedBox(height: 8),
               Text(
                 "Umidade:",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
                    SizedBox(height: 12),
               Stack(
@@ -32,16 +35,15 @@ class UmidityContainer extends StatelessWidget {
                     child: CircularProgressIndicator(
                       value: (weather.humidity/100).toDouble(),
                       strokeWidth: 15,
-                      backgroundColor: Colors.white.withOpacity(0.2),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Colors.blue,
+                      backgroundColor:      Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
                   Text(
                     '${(weather.humidity).toInt()}%',
-                    style: const TextStyle(
-                      color: Colors.white,
+                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),

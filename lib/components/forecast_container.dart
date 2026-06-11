@@ -59,7 +59,7 @@ class ForecastContainer extends StatelessWidget {
               SizedBox(height: 8),
               Text(
                 "${item.dateTime.hour}:00 hr",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
 
               SizedBox(height: 10),
@@ -67,7 +67,7 @@ class ForecastContainer extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 '${item.temp.toStringAsFixed(1)}°C ',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),
