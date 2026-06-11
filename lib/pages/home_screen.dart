@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:myweather/components/forecast_container.dart';
 import 'package:myweather/components/umidity_container.dart';
 import 'package:myweather/services/weather_provider.dart';
@@ -10,6 +11,43 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+}
+
+String getWeatherAnimation(String description) {
+  switch (description.toLowerCase()) {
+    case 'céu limpo':
+    case 'sol':
+      return 'assets/animations/Weather-sunny.json';
+
+    case 'algumas nuvens':
+    case 'nuvens dispersas':
+    case 'parcialmente nublado':
+      return 'assets/animations/Weather-partly cloudy.json';
+
+    case 'nublado':
+    case 'tempo nublado':
+    case 'chuviscos':
+    case 'chuva leve':
+      return 'assets/animations/Weather-partly shower.json';
+
+    case 'chuva':
+    case 'chuva forte':
+    case 'trovoada':
+    case 'tempestade':
+      return 'assets/animations/Weather-storm.json';
+
+    case 'vento':
+    case 'ventania':
+      return 'assets/animations/Weather-windy.json';
+
+    case 'nascer do sol':
+      return 'assets/animations/sunrise.json';
+    case 'pôr do sol':
+      return 'assets/animations/sunset.json';
+
+    default:
+      return 'assets/animations/Weather-sunny.json';
+  }
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -51,6 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (weatherProvider.errorMessage == null &&
               weatherProvider.data != null) {
+            final String animacao = getWeatherAnimation(
+              weatherProvider.data!.weatherDescription,
+            );
             final weather = weatherProvider.data!;
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -74,15 +115,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                         const SizedBox(width: 8),
-                                         Icon(Icons.location_pin)
+                                const SizedBox(width: 8),
+                                Icon(Icons.location_pin),
                               ],
                             ),
                             const SizedBox(height: 8),
                             Text(
                               '${weather.temp.toStringAsFixed(1)}°C',
                               style: const TextStyle(
-                                fontSize: 42,
+                                fontSize: 48,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -95,6 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ],
+                        ),
+                        SizedBox(width: 8),
+                        SizedBox(
+                          height: 150,
+                          width: 150,
+                          child: Lottie.asset(animacao),
                         ),
                       ],
                     ),
@@ -123,12 +170,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   ),
-                  SizedBox(height: 8,),
-                UmidityContainer(weather: weather,)
+                  SizedBox(height: 8),
+                  UmidityContainer(weather: weather),
                 ],
               ),
-              );
-            }
+            );
+          }
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
